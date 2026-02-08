@@ -13,4 +13,4 @@
 phpstan.neon
 ###< phpstan/phpstan ###
 
-.idea
+.idea/
