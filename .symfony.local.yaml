@@ -1,0 +1,9 @@
+proxy:
+    domains:
+        - reviewovac
+http:
+    daemon: true
+workers:
+    messenger_scheduler:
+        cmd: [ 'symfony', 'console', 'messenger:consume', 'scheduler_default' ,'--time-limit=3600' ]
+        watch: [ 'config', 'src', 'templates' ]
