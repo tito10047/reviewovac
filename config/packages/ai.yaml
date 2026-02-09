@@ -1,22 +1,19 @@
 ai:
-    platform:
-        # Inference Platform configuration
-        # see https://github.com/symfony/ai/tree/main/src/platform#platform-bridges
-
-        # openai:
-        #    api_key: '%env(OPENAI_API_KEY)%'
-
     agent:
         # Agent configuration
         # see https://symfony.com/doc/current/ai/bundles/ai-bundle.html
 
-        # default:
-        #    platform: 'ai.platform.openai'
-        #    model: 'gpt-5-mini'
-        #    prompt: |
-        #        You are a pirate and you write funny.
-        #    tools:
-        #        - 'Symfony\AI\Agent\Bridge\Clock\Clock'
+        review_assistant:
+            model:
+                name: "gpt-5-nano"
+                capabilities:
+                    - !php/const 'Symfony\AI\Platform\Capability::OUTPUT_STRUCTURED'
+            prompt: |
+                Analyzuj túto zákaznícku recenziu.
+                - Urči sentiment (positive, neutral, negative).
+                - Identifikuj, či je hlavným problémom samotný produkt (true/false).
+                - Prelož text recenzie do nasledujúcich jazykov: SK, HU, CZ, RO, HR, SI. Ak je zdrojový jazyk zhodný s cieľovým, vráť pôvodný text.
+            tools: false
 
     store:
         # Store configuration

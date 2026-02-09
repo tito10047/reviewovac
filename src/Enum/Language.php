@@ -10,4 +10,11 @@ enum Language:string {
     case Romanian = 'ro';
     case Croatian = 'hr';
     case Slovenian = 'sl';
+
+    /**
+     * @return string[]
+     */
+    public static function getSupportedLanguages():array {
+        return array_map(fn(Language $language) => $language->value, self::cases());
+    }
 }
