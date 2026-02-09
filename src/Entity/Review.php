@@ -39,6 +39,9 @@ class Review
     #[ORM\Column(length: 5, nullable: true, enumType: Language::class)]
     private ?Language $primaryLanguage = null;
 
+    #[ORM\Column()]
+    private bool $processed = false;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -97,6 +100,16 @@ class Review
         $this->primaryLanguage = $primaryLanguage;
         return $this;
     }
+
+    public function isProcessed(): bool {
+        return $this->processed;
+    }
+
+    public function setProcessed(bool $processed): static {
+        $this->processed = $processed;
+        return $this;
+    }
+
 
 
 }
