@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use App\Enum\Language;
+use App\Enum\ReviewProblemTarget;
+use App\Enum\ReviewSentiment;
+use App\Enum\ReviewStar;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,80 +24,79 @@ class Review
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $stars = null;
+    #[ORM\Column(nullable: true, enumType: ReviewStar::class)]
+    private ?ReviewStar $stars = null;
 
     #[ORM\Column]
     private ?int $productId = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $sentiment = null;
+    #[ORM\Column(length: 25, enumType: ReviewSentiment::class)]
+    private ?ReviewSentiment $sentiment = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $primaryProblem = null;
+    #[ORM\Column(length: 25, nullable: true, enumType: ReviewProblemTarget::class)]
+    private ?ReviewProblemTarget $primaryProblem = null;
+
+    #[ORM\Column(length: 5, nullable: true, enumType: Language::class)]
+    private ?Language $primaryLanguage = null;
 
     public function getId(): ?Uuid
     {
         return $this->id;
     }
 
-    public function getContent(): ?string
-    {
+    public function getContent(): ?string {
         return $this->content;
     }
 
-    public function setContent(?string $content): static
-    {
+    public function setContent(?string $content): static {
         $this->content = $content;
-
         return $this;
     }
 
-    public function getStars(): ?int
-    {
+    public function getStars(): ?ReviewStar {
         return $this->stars;
     }
 
-    public function setStars(?int $stars): static
-    {
+    public function setStars(?ReviewStar $stars): static {
         $this->stars = $stars;
-
         return $this;
     }
 
-    public function getProductId(): ?int
-    {
+    public function getProductId(): ?int {
         return $this->productId;
     }
 
-    public function setProductId(int $productId): static
-    {
+    public function setProductId(?int $productId): static {
         $this->productId = $productId;
-
         return $this;
     }
 
-    public function getSentiment(): ?string
-    {
+    public function getSentiment(): ?ReviewSentiment {
         return $this->sentiment;
     }
 
-    public function setSentiment(string $sentiment): static
-    {
+    public function setSentiment(?ReviewSentiment $sentiment): static {
         $this->sentiment = $sentiment;
-
         return $this;
     }
 
-    public function getPrimaryProblem(): ?string
-    {
+    public function getPrimaryProblem(): ?ReviewProblemTarget {
         return $this->primaryProblem;
     }
 
-    public function setPrimaryProblem(string $primaryProblem): static
-    {
+    public function setPrimaryProblem(?ReviewProblemTarget $primaryProblem): static {
         $this->primaryProblem = $primaryProblem;
-
         return $this;
     }
+
+    public function getPrimaryLanguage(): ?Language {
+        return $this->primaryLanguage;
+    }
+
+    public function setPrimaryLanguage(?Language $primaryLanguage): static {
+        $this->primaryLanguage = $primaryLanguage;
+        return $this;
+    }
+
+
 }
