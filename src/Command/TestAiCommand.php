@@ -30,5 +30,6 @@ class TestAiCommand {
 
         /** @var ReviewResponse $reviewResponse */
         $reviewResponse = $response->getContent();
+        dd($reviewResponse);
     }
 }

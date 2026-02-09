@@ -21,7 +21,7 @@ class ReviewResponse {
     ) {
     }
 
-    public function getSentiment():ReviewSentiment {
+    public function getSentimentEnum():ReviewSentiment {
         return ReviewSentiment::from($this->sentiment);
     }
 }

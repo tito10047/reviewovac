@@ -20,7 +20,7 @@ class ReviewTranslationResponse {
     ) {
     }
 
-    public function getLocale(): Language {
+    public function getLocaleEnum(): Language {
         return Language::from($this->locale);
     }
 }
