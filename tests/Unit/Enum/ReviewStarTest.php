@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Enum;
+namespace App\Tests\Unit\Enum;
 
 use App\Enum\ReviewStar;
 use PHPUnit\Framework\TestCase;
