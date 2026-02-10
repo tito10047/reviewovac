@@ -10,7 +10,7 @@ ai:
                     - !php/const 'Symfony\AI\Platform\Capability::OUTPUT_STRUCTURED'
             prompt: |
                 Analyzuj túto zákaznícku recenziu.
-                - Urči sentiment (positive, neutral, negative).
+                - Urči sentiment.
                 - Identifikuj, či je hlavným problémom samotný produkt (true/false).
                 - Prelož text recenzie do potrebných jazykov. Ak je zdrojový jazyk zhodný s cieľovým, vráť pôvodný text.
             tools: false
