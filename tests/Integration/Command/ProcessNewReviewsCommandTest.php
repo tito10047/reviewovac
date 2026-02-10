@@ -21,8 +21,13 @@ class ProcessNewReviewsCommandTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
 
-        $this->entityManager = $container->get(EntityManagerInterface::class);
-        $this->reviewRepository = $container->get(ReviewRepository::class);
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get(EntityManagerInterface::class);
+        $this->entityManager = $entityManager;
+
+        /** @var ReviewRepository $reviewRepository */
+        $reviewRepository = $container->get(ReviewRepository::class);
+        $this->reviewRepository = $reviewRepository;
     }
 
     public function testExecuteDispatchesMessagesForUnprocessedReviews(): void
@@ -52,7 +57,11 @@ class ProcessNewReviewsCommandTest extends KernelTestCase
         $this->entityManager->flush();
 
         // 2. Spustenie príkazu
-        $application = new Application(self::$kernel);
+        $kernel = self::$kernel;
+        if (!$kernel) {
+            throw new \LogicException('Kernel is not booted.');
+        }
+        $application = new Application($kernel);
         $command = $application->find('app:process-new-reviews');
         $commandTester = new CommandTester($command);
 
@@ -72,8 +81,16 @@ class ProcessNewReviewsCommandTest extends KernelTestCase
             $sentMessages[] = $message->reviewId;
         }
 
-        $this->assertContains($review1->getId()->toString(), $sentMessages);
-        $this->assertContains($review2->getId()->toString(), $sentMessages);
-        $this->assertNotContains($review3->getId()->toString(), $sentMessages);
+        $id1 = $review1->getId();
+        $id2 = $review2->getId();
+        $id3 = $review3->getId();
+
+        $this->assertNotNull($id1);
+        $this->assertNotNull($id2);
+        $this->assertNotNull($id3);
+
+        $this->assertContains($id1->toString(), $sentMessages);
+        $this->assertContains($id2->toString(), $sentMessages);
+        $this->assertNotContains($id3->toString(), $sentMessages);
     }
 }

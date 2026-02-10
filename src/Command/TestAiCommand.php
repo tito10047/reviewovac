@@ -29,7 +29,12 @@ class TestAiCommand {
             throw new \Exception("No random review found");
         }
 
-        $this->bus->dispatch(new ProcessReviewMessage($randomPrompt->getId()->toString()));
+        $id = $randomPrompt->getId();
+        if (!$id) {
+            throw new \Exception("Review ID is null");
+        }
+
+        $this->bus->dispatch(new ProcessReviewMessage($id->toString()));
 
         return Command::SUCCESS;
     }

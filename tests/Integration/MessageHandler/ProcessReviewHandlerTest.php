@@ -31,8 +31,13 @@ class ProcessReviewHandlerTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
 
-        $this->entityManager = $container->get(EntityManagerInterface::class);
-        $this->reviewRepository = $container->get(ReviewRepository::class);
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get(EntityManagerInterface::class);
+        $this->entityManager = $entityManager;
+
+        /** @var ReviewRepository $reviewRepository */
+        $reviewRepository = $container->get(ReviewRepository::class);
+        $this->reviewRepository = $reviewRepository;
 
         $this->reviewServiceMock = $this->createMock(ReviewProcessServiceInterface::class);
         $container->set(ReviewProcessServiceInterface::class, $this->reviewServiceMock);
@@ -72,7 +77,8 @@ class ProcessReviewHandlerTest extends KernelTestCase
         $this->reviewServiceMock->expects($this->once())
             ->method('processReview')
             ->with($this->callback(function (Review $r) use ($reviewId) {
-                return $r->getId() !== null && $r->getId()->equals($reviewId);
+                $id = $r->getId();
+                return $id !== null && $reviewId !== null && $id->equals($reviewId);
             }))
             ->willReturn($reviewResponse);
 
