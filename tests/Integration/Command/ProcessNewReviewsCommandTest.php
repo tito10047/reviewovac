@@ -2,7 +2,7 @@
 
 namespace App\Tests\Integration\Command;
 
-use App\Entity\Review;
+use App\Factory\ReviewFactory;
 use App\Message\ProcessReviewMessage;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,9 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;
+use Zenstruck\Foundry\Test\Factories;
 
 class ProcessNewReviewsCommandTest extends KernelTestCase
 {
+    use Factories;
+
     private EntityManagerInterface $entityManager;
     private ReviewRepository $reviewRepository;
 
@@ -32,29 +35,10 @@ class ProcessNewReviewsCommandTest extends KernelTestCase
 
     public function testExecuteDispatchesMessagesForUnprocessedReviews(): void
     {
-        // 1. Vyčistenie a príprava dát
-        // V integračných testoch predpokladáme, že máme čistú testovaciu databázu alebo používame transakcie.
-        foreach ($this->reviewRepository->findAll() as $r) {
-            $this->entityManager->remove($r);
-        }
-        $this->entityManager->flush();
-
-        $review1 = new Review();
-        $review1->setProductId(1);
-        $review1->setProcessed(false);
-        $this->entityManager->persist($review1);
-
-        $review2 = new Review();
-        $review2->setProductId(2);
-        $review2->setProcessed(false);
-        $this->entityManager->persist($review2);
-
-        $review3 = new Review();
-        $review3->setProductId(3);
-        $review3->setProcessed(true); // Tento by mal byť ignorovaný
-        $this->entityManager->persist($review3);
-
-        $this->entityManager->flush();
+        // 1. Príprava dát pomocou factory
+        $review1 = ReviewFactory::createOne(['productId' => 1, 'processed' => false]);
+        $review2 = ReviewFactory::createOne(['productId' => 2, 'processed' => false]);
+        $review3 = ReviewFactory::createOne(['productId' => 3, 'processed' => true]);
 
         // 2. Spustenie príkazu
         $kernel = self::$kernel;

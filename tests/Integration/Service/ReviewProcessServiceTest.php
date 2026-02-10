@@ -2,12 +2,15 @@
 
 namespace App\Tests\Integration\Service;
 
-use App\Entity\Review;
+use App\Factory\ReviewFactory;
 use App\Service\ReviewProcessService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Zenstruck\Foundry\Test\Factories;
 
 class ReviewProcessServiceTest extends KernelTestCase
 {
+    use Factories;
+
     public function testProcessReview(): void
     {
         $realAi = $_ENV['REAL_AI'] ?? $_SERVER['REAL_AI'] ?? getenv('REAL_AI');
@@ -21,8 +24,9 @@ class ReviewProcessServiceTest extends KernelTestCase
         /** @var ReviewProcessService $service */
         $service = $container->get(ReviewProcessService::class);
 
-        $review = new Review();
-        $review->setContent('Tento produkt je skvelý, som veľmi spokojný!');
+        $review = ReviewFactory::new()->create([
+            'content' => 'Tento produkt je skvelý, som veľmi spokojný!',
+        ])->getProxy()->_real();
 
         $response = $service->processReview($review);
 

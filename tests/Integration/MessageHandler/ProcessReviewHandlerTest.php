@@ -7,6 +7,7 @@ use App\DTO\AI\ReviewTranslationResponse;
 use App\Entity\Review;
 use App\Enum\Language;
 use App\Enum\ReviewSentiment;
+use App\Factory\ReviewFactory;
 use App\Message\ProcessReviewMessage;
 use App\MessageHandler\ProcessReviewHandler;
 use App\Repository\ReviewRepository;
@@ -16,9 +17,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Zenstruck\Foundry\Test\Factories;
 
 class ProcessReviewHandlerTest extends KernelTestCase
 {
+    use Factories;
+
     private EntityManagerInterface $entityManager;
     private ReviewRepository $reviewRepository;
     private ProcessReviewHandler $handler;
@@ -52,13 +56,11 @@ class ProcessReviewHandlerTest extends KernelTestCase
     public function testInvokeProcessesReviewSuccessfully(): void
     {
         // 1. Prepare data
-        $review = new Review();
-        $review->setContent('Tento produkt je skvelý!');
-        $review->setProductId(123);
-        $review->setPrimaryLanguage(Language::Slovak);
-        $this->entityManager->persist($review);
-        $this->entityManager->flush();
-
+        $review = ReviewFactory::createOne([
+            'content' => 'Tento produkt je skvelý!',
+            'productId' => 123,
+            'primaryLanguage' => Language::Slovak,
+        ]);
         $reviewId = $review->getId();
 
         $translationResponse = new ReviewTranslationResponse(
@@ -125,12 +127,11 @@ class ProcessReviewHandlerTest extends KernelTestCase
     public function testInvokeDoesNotTranslateIfNoTranslationNeeded(): void
     {
         // Preparation
-        $review = new Review();
-        $review->setContent('Tento produkt je fajn');
-        $review->setProductId(456);
-        $review->setPrimaryLanguage(Language::Slovak);
-        $this->entityManager->persist($review);
-        $this->entityManager->flush();
+        $review = ReviewFactory::createOne([
+            'content' => 'Tento produkt je fajn',
+            'productId' => 456,
+            'primaryLanguage' => Language::Slovak,
+        ]);
 
         $reviewId = $review->getId();
 
