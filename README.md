@@ -81,6 +81,13 @@ V prípade potreby rozšírenia systému o nové možnosti postupujte nasledovne
 - **Pridanie nového sentimentu:** Ak je potrebné rozlíšiť iný typ sentimentu, pridajte ho do enumu `App\Enum\ReviewSentiment`.
 - **Konfigurácia AI promptu:** Texty promptov a modely pre AI analýzu sa konfigurujú v súbore `config/packages/ai.yaml`.
 
+### Budúce vylepšenia
+
+V pláne sú nasledujúce vylepšenia systému:
+
+- **Command na aktualizáciu chýbajúcich prekladov:** Ak je pridaný nový jazyk do systému, treba spustiť command na doplnenie chýbajúcich prekladov pre existujúce recenzie.
+- **Kontrola AI výstupu:** Implementácia kontroly, či AI vrátilo všetky požadované jazyky v odpovedi.
+
 ### Vývojárske nástroje
 
 V projekte sú nakonfigurované nástroje pre udržiavanie kvality kódu. Môžeš ich spúšťať pomocou Composer skriptov:
