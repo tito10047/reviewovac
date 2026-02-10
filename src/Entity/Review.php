@@ -7,6 +7,7 @@ use App\Enum\ReviewProblemTarget;
 use App\Enum\ReviewSentiment;
 use App\Enum\ReviewStar;
 use App\Repository\ReviewRepository;
+use App\Service\TranslatableInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -16,9 +17,10 @@ use SymfonyCasts\ObjectTranslationBundle\Mapping\TranslatableProperty;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 #[Translatable('product')]
-class Review
+class Review implements TranslatableInterface
 {
     public const CONTENT_PROPERTY = 'content';
+    public const TRANSLATABLE_TYPE = 'product';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -36,7 +38,7 @@ class Review
     #[ORM\Column]
     private ?int $productId = null;
 
-    #[ORM\Column(length: 25, enumType: ReviewSentiment::class)]
+    #[ORM\Column(length: 25, enumType: ReviewSentiment::class, nullable: true)]
     private ?ReviewSentiment $sentiment = null;
 
     #[ORM\Column(length: 25, nullable: true, enumType: ReviewProblemTarget::class)]
@@ -116,6 +118,13 @@ class Review
         return $this;
     }
 
+    public function getTranslatableType(): string
+    {
+        return self::TRANSLATABLE_TYPE;
+    }
 
-
+    public function getTranslatableId(): string
+    {
+        return (string) $this->id;
+    }
 }
