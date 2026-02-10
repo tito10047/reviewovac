@@ -24,9 +24,9 @@ class ReviewProcessServiceTest extends KernelTestCase
         /** @var ReviewProcessService $service */
         $service = $container->get(ReviewProcessService::class);
 
-        $review = ReviewFactory::new()->create([
+        $review = ReviewFactory::createOne([
             'content' => 'Tento produkt je skvelý, som veľmi spokojný!',
-        ])->getProxy()->_real();
+        ]);
 
         $response = $service->processReview($review);
 

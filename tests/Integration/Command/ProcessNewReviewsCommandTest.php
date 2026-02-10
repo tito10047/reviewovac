@@ -16,21 +16,9 @@ class ProcessNewReviewsCommandTest extends KernelTestCase
 {
     use Factories;
 
-    private EntityManagerInterface $entityManager;
-    private ReviewRepository $reviewRepository;
-
     protected function setUp(): void
     {
         self::bootKernel();
-        $container = static::getContainer();
-
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $container->get(EntityManagerInterface::class);
-        $this->entityManager = $entityManager;
-
-        /** @var ReviewRepository $reviewRepository */
-        $reviewRepository = $container->get(ReviewRepository::class);
-        $this->reviewRepository = $reviewRepository;
     }
 
     public function testExecuteDispatchesMessagesForUnprocessedReviews(): void
