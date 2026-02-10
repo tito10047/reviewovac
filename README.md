@@ -14,13 +14,47 @@ php bin/console app:process-new-reviews
 >
 > Táto konfigurácia sa nachádza v súbore `config/packages/messenger.yaml`.
 
+### Vývojárske nástroje
+
+V projekte sú nakonfigurované nástroje pre udržiavanie kvality kódu. Môžeš ich spúšťať pomocou Composer skriptov:
+
+#### Statická analýza (PHPStan)
+```bash
+composer phpstan
+```
+
+#### Kontrola a oprava kódového štýlu (PHP CS Fixer)
+```bash
+# Iba kontrola
+composer cs-check
+
+# Automatická oprava
+composer cs-fix
+```
+
 ### Testovanie
 
 V projekte sú testy rozdelené do dvoch hlavných skupín: **Unit testy** a **Integračné testy**.
 
 #### Spustenie testov
 
-Pre spustenie všetkých testov použi príkaz:
+Pre spustenie testov môžeš použiť nasledujúce skratky:
+
+```bash
+# Spustenie všetkých testov
+composer tests
+
+# Iba unit testy
+composer tests-unit
+
+# Iba integračné testy
+composer tests-integration
+
+# Integračné testy s reálnymi volaniami na AI (vyžaduje nastavené API kľúče)
+composer tests-real-ai
+```
+
+Pôvodné príkazy cez `phpunit` stále fungujú:
 ```bash
 vendor/bin/phpunit
 ```
