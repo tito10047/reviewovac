@@ -3,6 +3,7 @@
 namespace App\MessageHandler;
 
 use App\Entity\Review;
+use App\Enum\ReviewProblemTarget;
 use App\Message\ProcessReviewMessage;
 use App\Repository\ReviewRepository;
 use App\Service\ReviewProcessServiceInterface;
@@ -44,6 +45,9 @@ class ProcessReviewHandler
         $review
             ->setSentiment($response->getSentimentEnum())
             ->setProcessed(true);
+        if ($response->isProductIssue) {
+            $review->setPrimaryProblem(ReviewProblemTarget::Product);
+        }
 
         foreach ($response->translations as $translation) {
             if (!$review->getPrimaryLanguage()?->needTranslationFor($translation->getLocaleEnum())) {

@@ -6,6 +6,7 @@ use App\DTO\AI\ReviewResponse;
 use App\DTO\AI\ReviewTranslationResponse;
 use App\Entity\Review;
 use App\Enum\Language;
+use App\Enum\ReviewProblemTarget;
 use App\Enum\ReviewSentiment;
 use App\Factory\ReviewFactory;
 use App\Message\ProcessReviewMessage;
@@ -162,5 +163,37 @@ class ProcessReviewHandlerTest extends KernelTestCase
         ]);
 
         $this->assertNull($translation);
+    }
+
+    public function testInvokeSetsProductProblemWhenIsProductIssueIsTrue(): void
+    {
+        // 1. Prepare data
+        $review = ReviewFactory::createOne([
+            'content' => 'Tento produkt nefunguje ako má.',
+            'productId' => 789,
+            'primaryLanguage' => Language::Slovak,
+        ]);
+        $reviewId = $review->getId();
+
+        $reviewResponse = new ReviewResponse(
+            ReviewSentiment::Negative->value,
+            true, // isProductIssue = true
+            []
+        );
+
+        // 2. Set expectations
+        $this->reviewServiceMock->method('processReview')->willReturn($reviewResponse);
+
+        // 3. Execute handler
+        $this->assertNotNull($reviewId);
+        $message = new ProcessReviewMessage($reviewId->toRfc4122());
+        ($this->handler)($message);
+
+        // 4. Verify
+        $this->entityManager->clear();
+        $updatedReview = $this->reviewRepository->find($reviewId);
+
+        $this->assertNotNull($updatedReview);
+        $this->assertEquals(ReviewProblemTarget::Product, $updatedReview->getPrimaryProblem());
     }
 }
