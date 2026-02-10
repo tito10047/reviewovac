@@ -12,6 +12,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * Handles review processing by fetching the entity, analyzing sentiment via AI,
+ * and persisting translations for all required locales.
+ */
 #[AsMessageHandler]
 class ProcessReviewHandler
 {

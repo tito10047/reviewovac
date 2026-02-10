@@ -8,7 +8,13 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-#[AsCommand(name: 'app:test-ai')]
+/**
+ * Processes a random review request.
+ */
+#[AsCommand(
+    name: 'app:test-ai',
+    description: 'Processes a random review request.',
+)]
 class TestAiCommand
 {
     public function __construct(

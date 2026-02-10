@@ -17,6 +17,7 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
+    /** Returns a random review entity. */
     public function findRandomReview(): ?Review
     {
         /** @var Review|null $review */
@@ -30,6 +31,8 @@ class ReviewRepository extends ServiceEntityRepository
     }
 
     /**
+     * Returns IDs of all unprocessed reviews.
+     *
      * @return Uuid[]
      */
     public function findUnprocessedIds(): array

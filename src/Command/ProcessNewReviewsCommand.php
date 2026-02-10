@@ -9,7 +9,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-#[AsCommand(name: 'app:process-new-reviews')]
+/**
+ * Processes all new review requests.
+ */
+#[AsCommand(
+    name: 'app:process-new-reviews',
+    description: 'Processes all new review requests.',
+)]
 class ProcessNewReviewsCommand
 {
     public function __construct(

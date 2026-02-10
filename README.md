@@ -1,4 +1,29 @@
-### Príkazy
+# Reviewovac
+
+Tento projekt slúži na automatizované spracovanie a analýzu produktových recenzií pomocou umelej inteligencie (AI).
+
+## Hlavné funkcie
+
+- **Analýza sentimentu:** AI automaticky vyhodnocuje sentiment recenzie (pozitívny, neutrálny, negatívny).
+- **Detekcia problémov:** Identifikácia, či sa recenzia týka konkrétneho problému s produktom.
+- **Automatický preklad:** Preklad textu recenzií do všetkých podporovaných jazykov definovaných v systéme.
+- **Asynchrónne spracovanie:** Využitie Symfony Messenger pre efektívne spracovanie veľkého množstva recenzií na pozadí.
+
+## Architektúra
+
+Projekt je postavený na Symfony 8 a využíva moderné bundle:
+- **Symfony AI Bundle:** Pre komunikáciu s AI modelmi (napr. OpenAI).
+- **SymfonyCasts ObjectTranslationBundle:** Pre ukladanie prekladov entít priamo v databáze.
+- **Symfony Messenger:** Pre asynchrónnu komunikáciu medzi komponentmi.
+- **Bug catcher:** Pre logovanie chyb do externho dashboardu.
+
+### Kľúčové triedy
+- `Review`: Hlavná entita reprezentujúca produktovú recenziu.
+- `ReviewProcessService`: Služba, ktorá zastrešuje komunikáciu s AI a získavanie analýz.
+- `ProcessReviewHandler`: Message handler, ktorý koordinuje spracovanie jednej recenzie.
+- `TranslationManager`: Nástroj na perzistenciu prekladov do databázy.
+
+## Príkazy
 
 #### Spracovanie nových recenzií
 Príkaz načíta všetky nespracované recenzie z databázy a pre každú z nich odošle správu do Symfony Messenger na ďalšie spracovanie.

@@ -5,6 +5,9 @@ namespace App\DTO\AI;
 use App\Enum\ReviewSentiment;
 use Symfony\AI\Platform\Contract\JsonSchema\Attribute\With;
 
+/**
+ * Facilitates communication with the Symfony AI bundle; the AI returns an instance of this class.
+ */
 class ReviewResponse
 {
     /**
