@@ -23,6 +23,40 @@ Projekt je postavený na Symfony 8 a využíva moderné bundle:
 - `ProcessReviewHandler`: Message handler, ktorý koordinuje spracovanie jednej recenzie.
 - `TranslationManager`: Nástroj na perzistenciu prekladov do databázy.
 
+## Inštalácia a spustenie
+
+Pre úspešné rozbehnutie projektu postupujte podľa nasledujúcich krokov:
+
+1. **Klonovanie repozitára:**
+   ```bash
+   git clone git@github.com:tito10047/reviewovac.git
+   cd reviewovac
+   ```
+
+2. **Konfigurácia prostredia:**
+   Vytvorte si lokálny konfiguračný súbor a nastavte v ňom potrebné premenné (napr. prístup k databáze a API kľúče).
+   ```bash
+   cp .env .env.local
+   ```
+
+3. **Spustenie migrácií:**
+   Pripravte si databázovú schému:
+   ```bash
+   php bin/console doctrine:migrations:migrate --no-interaction
+   ```
+
+4. **Nahranie testovacích dát (voliteľné):**
+   Ak chcete začať s testovacími dátami, spustite fixtures:
+   ```bash
+   php bin/console doctrine:fixtures:load --no-interaction
+   ```
+
+5. **Spracovanie nových recenzií:**
+   Pre spustenie procesu spracovania nových recenzií použite príkaz:
+   ```bash
+   php bin/console app:process-new-reviews
+   ```
+
 ## Príkazy
 
 #### Spracovanie nových recenzií
