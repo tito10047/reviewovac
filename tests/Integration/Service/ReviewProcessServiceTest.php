@@ -26,7 +26,6 @@ class ReviewProcessServiceTest extends KernelTestCase
 
         $response = $service->processReview($review);
 
-        $this->assertNotNull($response);
         $this->assertNotEmpty($response->sentiment);
         $this->assertIsBool($response->isProductIssue);
     }

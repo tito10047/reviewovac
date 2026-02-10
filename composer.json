@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "beberlei/doctrineextensions": "^1.5",
         "doctrine/doctrine-migrations-bundle": "^4.0",
+        "php-bug-catcher/reporter-bundle": "*",
         "symfony/ai-agent": "0.3.0",
         "symfony/ai-bundle": "0.3.2",
         "symfony/ai-open-ai-platform": "0.3.0",

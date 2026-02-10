@@ -27,7 +27,7 @@ enum Language:string {
             return false;
         }
         return array_all($noNeedTranslation, fn($value, $key) =>
-            ($value !== $targetLanguage->value || !($key = $this->value)) && ($key !== $targetLanguage->value || !($value == $this->value))
+            ($value !== $targetLanguage->value || ($key !== $this->value)) && ($key !== $targetLanguage->value || ($value !== $this->value))
         );
     }
 }

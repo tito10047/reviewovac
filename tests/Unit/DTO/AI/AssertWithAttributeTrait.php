@@ -15,6 +15,9 @@ trait AssertWithAttributeTrait
     {
         $reflection = new ReflectionClass($dtoClass);
         $constructor = $reflection->getConstructor();
+        if (!$constructor){
+            $this->fail(sprintf('No constructor found in %s', $dtoClass));
+        }
         $parameters = $constructor->getParameters();
 
         $targetParam = null;
@@ -32,6 +35,9 @@ trait AssertWithAttributeTrait
 
         /** @var With $withAttribute */
         $withAttribute = $attributes[0]->newInstance();
+        if (!$withAttribute->enum){
+            $this->fail(sprintf('No enum values found in #[With] attribute on "%s" parameter in %s', $propertyName, $dtoClass));
+        }
 
         $allowedValues = $withAttribute->enum;
         $expectedValues = array_map(fn($case) => $case->value, $enumClass::cases());

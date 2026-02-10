@@ -14,6 +14,7 @@ class LanguageTest extends TestCase
         $this->assertSame($expected, $source->needTranslationFor($target));
     }
 
+    /** @return array<string, array{Language, Language, bool}> */
     public static function provideNeedTranslationData(): array
     {
         return [

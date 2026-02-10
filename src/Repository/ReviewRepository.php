@@ -17,11 +17,13 @@ class ReviewRepository extends ServiceEntityRepository
     }
 
 	public function findRandomReview():?Review {
-        return $this->createQueryBuilder("r")
+        /** @var Review|null $review */
+        $review = $this->createQueryBuilder("r")
             ->orderBy("RAND()")
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+        return $review;
 
 	}
 }

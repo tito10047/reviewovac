@@ -1,0 +1,17 @@
+services:
+    app.chain_uri_catcher:
+        class: BugCatcher\Reporter\UrlCatcher\ChainUriCatcher
+        arguments:
+            $uriCatchers:
+                - '@bug_catcher.uri_catcher.http_catcher'
+                - '@bug_catcher.uri_catcher.console_catcher'
+framework:
+    http_client:
+        scoped_clients:
+            # only requests matching scope will use these options
+            bug_catcher.client:
+                base_uri: 'https://sentinel.vsetkosada.sk'
+bug_catcher:
+    project: 'reviewovac'
+    http_client: 'bug_catcher.client'
+    uri_catcher: 'app.chain_uri_catcher'
