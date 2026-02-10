@@ -2,20 +2,19 @@
 
 namespace App\Tests\Unit\DTO\AI;
 
-use ReflectionClass;
 use Symfony\AI\Platform\Contract\JsonSchema\Attribute\With;
 
 trait AssertWithAttributeTrait
 {
     /**
-     * @param class-string $dtoClass
+     * @param class-string              $dtoClass
      * @param class-string<\BackedEnum> $enumClass
      */
     protected function assertWithAttributeContainsAllEnumValues(string $dtoClass, string $propertyName, string $enumClass): void
     {
-        $reflection = new ReflectionClass($dtoClass);
+        $reflection = new \ReflectionClass($dtoClass);
         $constructor = $reflection->getConstructor();
-        if (!$constructor){
+        if (!$constructor) {
             $this->fail(sprintf('No constructor found in %s', $dtoClass));
         }
         $parameters = $constructor->getParameters();
@@ -35,12 +34,12 @@ trait AssertWithAttributeTrait
 
         /** @var With $withAttribute */
         $withAttribute = $attributes[0]->newInstance();
-        if (!$withAttribute->enum){
+        if (!$withAttribute->enum) {
             $this->fail(sprintf('No enum values found in #[With] attribute on "%s" parameter in %s', $propertyName, $dtoClass));
         }
 
         $allowedValues = $withAttribute->enum;
-        $expectedValues = array_map(fn($case) => $case->value, $enumClass::cases());
+        $expectedValues = array_map(fn ($case) => $case->value, $enumClass::cases());
 
         sort($allowedValues);
         sort($expectedValues);

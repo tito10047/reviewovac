@@ -5,8 +5,8 @@ namespace App\DTO\AI;
 use App\Enum\Language;
 use Symfony\AI\Platform\Contract\JsonSchema\Attribute\With;
 
-class ReviewTranslationResponse {
-
+class ReviewTranslationResponse
+{
     public function __construct(
         #[With(enum: [
             Language::Croatian->value,
@@ -20,7 +20,8 @@ class ReviewTranslationResponse {
     ) {
     }
 
-    public function getLocaleEnum(): Language {
+    public function getLocaleEnum(): Language
+    {
         return Language::from($this->locale);
     }
 }

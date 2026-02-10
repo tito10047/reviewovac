@@ -2,8 +2,7 @@
 
 namespace App\Enum;
 
-enum ReviewProblemTarget :string{
-
+enum ReviewProblemTarget: string
+{
     case Product = 'product';
-
 }

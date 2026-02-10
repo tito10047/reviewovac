@@ -3,8 +3,8 @@
 namespace App\Tests\Unit\Service;
 
 use App\Entity\Translation;
-use App\Service\TranslationManager;
 use App\Service\TranslatableInterface;
+use App\Service\TranslationManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -38,9 +38,9 @@ class TranslationManagerTest extends TestCase
             ->method('findOneBy')
             ->with([
                 'objectType' => $type,
-                'objectId'   => $id,
-                'locale'     => $locale,
-                'field'      => $field,
+                'objectId' => $id,
+                'locale' => $locale,
+                'field' => $field,
             ])
             ->willReturn(null);
 
@@ -52,11 +52,11 @@ class TranslationManagerTest extends TestCase
         $this->entityManagerMock->expects($this->once())
             ->method('persist')
             ->with($this->callback(function (Translation $translation) use ($type, $id, $locale, $field, $value) {
-                return $translation->objectType === $type &&
-                       $translation->objectId === $id &&
-                       $translation->locale === $locale &&
-                       $translation->field === $field &&
-                       $translation->value === $value;
+                return $translation->objectType === $type
+                       && $translation->objectId === $id
+                       && $translation->locale === $locale
+                       && $translation->field === $field
+                       && $translation->value === $value;
             }));
 
         $this->entityManagerMock->expects($this->once())

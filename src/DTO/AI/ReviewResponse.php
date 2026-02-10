@@ -5,8 +5,8 @@ namespace App\DTO\AI;
 use App\Enum\ReviewSentiment;
 use Symfony\AI\Platform\Contract\JsonSchema\Attribute\With;
 
-class ReviewResponse {
-
+class ReviewResponse
+{
     /**
      * @param list<ReviewTranslationResponse> $translations
      */
@@ -17,11 +17,12 @@ class ReviewResponse {
             ReviewSentiment::Neutral->value,
         ])] public string $sentiment,
         public ?bool $isProductIssue,
-        public array $translations
+        public array $translations,
     ) {
     }
 
-    public function getSentimentEnum():ReviewSentiment {
+    public function getSentimentEnum(): ReviewSentiment
+    {
         return ReviewSentiment::from($this->sentiment);
     }
 }

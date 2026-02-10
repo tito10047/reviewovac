@@ -17,28 +17,30 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-	public function findRandomReview():?Review {
+    public function findRandomReview(): ?Review
+    {
         /** @var Review|null $review */
-        $review = $this->createQueryBuilder("r")
-            ->orderBy("RAND()")
+        $review = $this->createQueryBuilder('r')
+            ->orderBy('RAND()')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
-        return $review;
 
-	}
+        return $review;
+    }
 
     /**
      * @return Uuid[]
      */
-    public function findUnprocessedIds():array {
+    public function findUnprocessedIds(): array
+    {
         /** @var array{id:Uuid} $array */
-        $array = $this->createQueryBuilder("r")
-            ->select("r.id")
-            ->where("r.processed = false")
+        $array = $this->createQueryBuilder('r')
+            ->select('r.id')
+            ->where('r.processed = false')
             ->getQuery()
             ->getArrayResult();
 
-        return array_column($array, "id");
+        return array_column($array, 'id');
     }
 }

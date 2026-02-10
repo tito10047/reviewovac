@@ -5,31 +5,32 @@ namespace App\Service;
 use App\Entity\Translation;
 use Doctrine\ORM\EntityManagerInterface;
 
-class TranslationManager {
-
+class TranslationManager
+{
     public function __construct(
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 
-    public function upsert(TranslatableInterface $object, string $locale, string $field, string $value, bool $flush = true): void {
+    public function upsert(TranslatableInterface $object, string $locale, string $field, string $value, bool $flush = true): void
+    {
         $type = $object->getTranslatableType();
-        $id   = $object->getTranslatableId();
+        $id = $object->getTranslatableId();
 
-        $repo        = $this->em->getRepository(Translation::class);
+        $repo = $this->em->getRepository(Translation::class);
         $translation = $repo->findOneBy([
             'objectType' => $type,
-            'objectId'   => $id,
-            'locale'     => $locale,
-            'field'      => $field,
+            'objectId' => $id,
+            'locale' => $locale,
+            'field' => $field,
         ]);
 
         if (!$translation) {
-            $translation             = new Translation();
+            $translation = new Translation();
             $translation->objectType = $type;
-            $translation->objectId   = $id;
-            $translation->locale     = $locale;
-            $translation->field      = $field;
+            $translation->objectId = $id;
+            $translation->locale = $locale;
+            $translation->field = $field;
         }
 
         $translation->value = $value;

@@ -2,8 +2,8 @@
 
 namespace App\Enum;
 
-enum ReviewStar:int {
-
+enum ReviewStar: int
+{
     case One = 1;
     case Two = 2;
     case Three = 3;
@@ -22,11 +22,11 @@ enum ReviewStar:int {
 
     public function isLowest(): bool
     {
-        return $this === self::One;
+        return self::One === $this;
     }
 
     public function isHighest(): bool
     {
-        return $this === self::Five;
+        return self::Five === $this;
     }
 }

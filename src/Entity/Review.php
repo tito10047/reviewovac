@@ -55,66 +55,87 @@ class Review implements TranslatableInterface
         return $this->id;
     }
 
-    public function getContent(): ?string {
+    public function getContent(): ?string
+    {
         return $this->content;
     }
 
-    public function setContent(?string $content): static {
+    public function setContent(?string $content): static
+    {
         $this->content = $content;
+
         return $this;
     }
 
-    public function getStars(): ?ReviewStar {
+    public function getStars(): ?ReviewStar
+    {
         return $this->stars;
     }
 
-    public function setStars(?ReviewStar $stars): static {
+    public function setStars(?ReviewStar $stars): static
+    {
         $this->stars = $stars;
+
         return $this;
     }
 
-    public function getProductId(): ?int {
+    public function getProductId(): ?int
+    {
         return $this->productId;
     }
 
-    public function setProductId(?int $productId): static {
+    public function setProductId(?int $productId): static
+    {
         $this->productId = $productId;
+
         return $this;
     }
 
-    public function getSentiment(): ?ReviewSentiment {
+    public function getSentiment(): ?ReviewSentiment
+    {
         return $this->sentiment;
     }
 
-    public function setSentiment(?ReviewSentiment $sentiment): static {
+    public function setSentiment(?ReviewSentiment $sentiment): static
+    {
         $this->sentiment = $sentiment;
+
         return $this;
     }
 
-    public function getPrimaryProblem(): ?ReviewProblemTarget {
+    public function getPrimaryProblem(): ?ReviewProblemTarget
+    {
         return $this->primaryProblem;
     }
 
-    public function setPrimaryProblem(?ReviewProblemTarget $primaryProblem): static {
+    public function setPrimaryProblem(?ReviewProblemTarget $primaryProblem): static
+    {
         $this->primaryProblem = $primaryProblem;
+
         return $this;
     }
 
-    public function getPrimaryLanguage(): ?Language {
+    public function getPrimaryLanguage(): ?Language
+    {
         return $this->primaryLanguage;
     }
 
-    public function setPrimaryLanguage(?Language $primaryLanguage): static {
+    public function setPrimaryLanguage(?Language $primaryLanguage): static
+    {
         $this->primaryLanguage = $primaryLanguage;
+
         return $this;
     }
 
-    public function isProcessed(): bool {
+    public function isProcessed(): bool
+    {
         return $this->processed;
     }
 
-    public function setProcessed(bool $processed): static {
+    public function setProcessed(bool $processed): static
+    {
         $this->processed = $processed;
+
         return $this;
     }
 

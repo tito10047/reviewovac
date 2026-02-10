@@ -12,5 +12,4 @@ class Translation extends BaseTranslation
     #[ORM\GeneratedValue]
     #[ORM\Column]
     public int $id;
-
 }

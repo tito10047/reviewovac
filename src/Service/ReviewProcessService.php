@@ -10,21 +10,23 @@ use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-class ReviewProcessService implements ReviewProcessServiceInterface {
-
+class ReviewProcessService implements ReviewProcessServiceInterface
+{
     public function __construct(
         #[Autowire(service: 'ai.agent.review_assistant')]
         private readonly AgentInterface $agent,
-    ) { }
+    ) {
+    }
 
     /**
      * @throws ExceptionInterface
      */
-    public function processReview(Review $review): ReviewResponse {
+    public function processReview(Review $review): ReviewResponse
+    {
         $response = $this->agent->call(new MessageBag(
-            Message::ofUser("Review: " . $review->getContent()),
-        ),[
-            'response_format' => ReviewResponse::class
+            Message::ofUser('Review: '.$review->getContent()),
+        ), [
+            'response_format' => ReviewResponse::class,
         ]);
 
         /** @var ReviewResponse $reviewResponse */

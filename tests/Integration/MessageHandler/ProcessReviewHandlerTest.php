@@ -2,6 +2,8 @@
 
 namespace App\Tests\Integration\MessageHandler;
 
+use App\DTO\AI\ReviewResponse;
+use App\DTO\AI\ReviewTranslationResponse;
 use App\Entity\Review;
 use App\Enum\Language;
 use App\Enum\ReviewSentiment;
@@ -9,9 +11,6 @@ use App\Message\ProcessReviewMessage;
 use App\MessageHandler\ProcessReviewHandler;
 use App\Repository\ReviewRepository;
 use App\Service\ReviewProcessServiceInterface;
-use App\Service\TranslationManager;
-use App\DTO\AI\ReviewResponse;
-use App\DTO\AI\ReviewTranslationResponse;
 use BugCatcher\Reporter\Service\BugCatcherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -78,7 +77,8 @@ class ProcessReviewHandlerTest extends KernelTestCase
             ->method('processReview')
             ->with($this->callback(function (Review $r) use ($reviewId) {
                 $id = $r->getId();
-                return $id !== null && $reviewId !== null && $id->equals($reviewId);
+
+                return null !== $id && null !== $reviewId && $id->equals($reviewId);
             }))
             ->willReturn($reviewResponse);
 

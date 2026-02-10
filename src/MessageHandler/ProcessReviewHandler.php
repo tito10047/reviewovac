@@ -13,22 +13,25 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Uid\Uuid;
 
 #[AsMessageHandler]
-class ProcessReviewHandler {
-
+class ProcessReviewHandler
+{
     public function __construct(
         private readonly ReviewProcessServiceInterface $reviewService,
         private readonly ReviewRepository $reviewRepo,
         private readonly TranslationManager $translationManager,
         private readonly EntityManagerInterface $em,
-        private readonly BugCatcherInterface $bugCatcher
-    ) { }
-    public function __invoke(ProcessReviewMessage $message): void {
+        private readonly BugCatcherInterface $bugCatcher,
+    ) {
+    }
 
+    public function __invoke(ProcessReviewMessage $message): void
+    {
         $review = $this->reviewRepo->find(Uuid::fromString($message->reviewId));
 
         if (!$review) {
-            //Probably the review was deleted, but we need to log it for a beta version
+            // Probably the review was deleted, but we need to log it for a beta version
             $this->bugCatcher->logException(new \Exception("Review not found for ID: {$message->reviewId}"));
+
             return;
         }
 
@@ -38,8 +41,8 @@ class ProcessReviewHandler {
             ->setSentiment($response->getSentimentEnum())
             ->setProcessed(true);
 
-        foreach($response->translations as $translation) {
-            if (!$review->getPrimaryLanguage()?->needTranslationFor($translation->getLocaleEnum())){
+        foreach ($response->translations as $translation) {
+            if (!$review->getPrimaryLanguage()?->needTranslationFor($translation->getLocaleEnum())) {
                 continue;
             }
 
@@ -54,5 +57,4 @@ class ProcessReviewHandler {
 
         $this->em->flush();
     }
-
 }
