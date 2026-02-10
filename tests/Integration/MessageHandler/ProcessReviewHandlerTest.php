@@ -32,8 +32,13 @@ class ProcessReviewHandlerTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
 
-        $this->entityManager = $container->get(EntityManagerInterface::class);
-        $this->reviewRepository = $container->get(ReviewRepository::class);
+        $entityManager = $container->get(EntityManagerInterface::class);
+        $this->assertInstanceOf(EntityManagerInterface::class, $entityManager);
+        $this->entityManager = $entityManager;
+
+        $reviewRepository = $container->get(ReviewRepository::class);
+        $this->assertInstanceOf(ReviewRepository::class, $reviewRepository);
+        $this->reviewRepository = $reviewRepository;
 
         $this->reviewServiceMock = $this->createMock(ReviewProcessServiceInterface::class);
         $this->bugCatcherMock = $this->createMock(BugCatcherInterface::class);
@@ -76,11 +81,13 @@ class ProcessReviewHandlerTest extends KernelTestCase
         $this->reviewServiceMock->expects($this->once())
             ->method('processReview')
             ->with($this->callback(function (Review $r) use ($reviewId) {
-                return $r->getId()->equals($reviewId);
+                /** @var Uuid $reviewId */
+                return $r->getId() !== null && $r->getId()->equals($reviewId);
             }))
             ->willReturn($reviewResponse);
 
         // 3. Execute handler
+        $this->assertNotNull($reviewId);
         $message = new ProcessReviewMessage($reviewId->toRfc4122());
         ($this->handler)($message);
 
@@ -144,6 +151,7 @@ class ProcessReviewHandlerTest extends KernelTestCase
 
         $this->reviewServiceMock->method('processReview')->willReturn($reviewResponse);
 
+        $this->assertNotNull($reviewId);
         $message = new ProcessReviewMessage($reviewId->toRfc4122());
         ($this->handler)($message);
 
