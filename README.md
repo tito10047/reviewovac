@@ -15,7 +15,7 @@ Projekt je postavený na Symfony 8 a využíva moderné bundle:
 - **Symfony AI Bundle:** Pre komunikáciu s AI modelmi (napr. OpenAI).
 - **SymfonyCasts ObjectTranslationBundle:** Pre ukladanie prekladov entít priamo v databáze.
 - **Symfony Messenger:** Pre asynchrónnu komunikáciu medzi komponentmi.
-- **Bug catcher:** Pre logovanie chyb do externho dashboardu.
+- **Bug catcher:** Pre logovanie chýb do externého dashboardu. Viac informácií nájdete na [php-bug-catcher/bug-catcher](https://github.com/php-bug-catcher/bug-catcher). Pre prístup k systému kontaktujte autora repozitára.
 
 ### Kľúčové triedy
 - `Review`: Hlavná entita reprezentujúca produktovú recenziu.
@@ -72,6 +72,13 @@ php bin/console app:process-new-reviews
 > - V **produkčnom prostredí** sú správy spracovávané **asynchrónne** prostredníctvom nakonfigurovaného transportu.
 >
 > Táto konfigurácia sa nachádza v súbore `config/packages/messenger.yaml`.
+
+### Rozšíriteľnosť
+
+V prípade potreby rozšírenia systému o nové možnosti postupujte nasledovne:
+
+- **Pridanie nového jazyka:** Nový jazyk musí byť pridaný do enumu `App\Enum\Language`.
+- **Pridanie nového sentimentu:** Ak je potrebné rozlíšiť iný typ sentimentu, pridajte ho do enumu `App\Enum\ReviewSentiment`.
 
 ### Vývojárske nástroje
 
