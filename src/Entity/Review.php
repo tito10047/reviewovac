@@ -11,10 +11,15 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
+use SymfonyCasts\ObjectTranslationBundle\Mapping\Translatable;
+use SymfonyCasts\ObjectTranslationBundle\Mapping\TranslatableProperty;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
+#[Translatable('product')]
 class Review
 {
+    public const CONTENT_PROPERTY = 'content';
+
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -22,6 +27,7 @@ class Review
     private ?Uuid $id = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[TranslatableProperty]
     private ?string $content = null;
 
     #[ORM\Column(nullable: true, enumType: ReviewStar::class)]
