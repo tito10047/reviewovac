@@ -1,3 +1,19 @@
+### Príkazy
+
+#### Spracovanie nových recenzií
+Príkaz načíta všetky nespracované recenzie z databázy a pre každú z nich odošle správu do Symfony Messenger na ďalšie spracovanie.
+
+```bash
+php bin/console app:process-new-reviews
+```
+
+> [!IMPORTANT]
+> **Spracovanie správ (Messenger):**
+> - V **vývojovom prostredí (dev)** sú správy spracovávané **synchrónne** pre jednoduchší vývoj a ladenie.
+> - V **produkčnom prostredí** sú správy spracovávané **asynchrónne** prostredníctvom nakonfigurovaného transportu.
+>
+> Táto konfigurácia sa nachádza v súbore `config/packages/messenger.yaml`.
+
 ### Testovanie
 
 V projekte sú testy rozdelené do dvoch hlavných skupín: **Unit testy** a **Integračné testy**.
@@ -38,7 +54,6 @@ Súbor by mal obsahovať aspoň tieto premenné:
 DATABASE_URL="mysql://uzivatel:heslo@127.0.0.1:3306/názov_databázy"
 
 # API kľúče pre AI služby (potrebné pre integračné testy s REAL_AI=1)
-OPENAI_API_KEY=sk-proj-ddH
-OPEN_ORGANISATION_ID=org-w4
-OPEN_PROJECT_ID=proj_
+OPENAI_API_KEY=sk-proj-ddH....
+
 ```

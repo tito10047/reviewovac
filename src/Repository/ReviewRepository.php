@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Review>
@@ -26,4 +27,18 @@ class ReviewRepository extends ServiceEntityRepository
         return $review;
 
 	}
+
+    /**
+     * @return Uuid[]
+     */
+    public function findUnprocessedIds():array {
+        /** @var array{id:Uuid} $array */
+        $array = $this->createQueryBuilder("r")
+            ->select("r.id")
+            ->where("r.processed = false")
+            ->getQuery()
+            ->getArrayResult();
+
+        return array_column($array, "id");
+    }
 }

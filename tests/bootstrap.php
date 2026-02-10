@@ -36,6 +36,5 @@ $runCommand = function (string $command) use ($application) {
 $runCommand('doctrine:database:drop --force --if-exists');
 $runCommand('doctrine:database:create --if-not-exists');
 $runCommand('doctrine:schema:create');
-$runCommand('doctrine:fixtures:load');
 
 $kernel->shutdown();

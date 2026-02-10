@@ -9,8 +9,10 @@ use App\Service\ReviewProcessServiceInterface;
 use App\Service\TranslationManager;
 use BugCatcher\Reporter\Service\BugCatcherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Uid\Uuid;
 
+#[AsMessageHandler]
 class ProcessReviewHandler {
 
     public function __construct(

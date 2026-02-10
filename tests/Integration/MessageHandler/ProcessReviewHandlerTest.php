@@ -24,7 +24,6 @@ class ProcessReviewHandlerTest extends KernelTestCase
     private ReviewRepository $reviewRepository;
     private ProcessReviewHandler $handler;
     private ReviewProcessServiceInterface&MockObject $reviewServiceMock;
-    private TranslationManager $translationManager;
     private BugCatcherInterface&MockObject $bugCatcherMock;
 
     protected function setUp(): void
@@ -32,33 +31,25 @@ class ProcessReviewHandlerTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
 
-        $entityManager = $container->get(EntityManagerInterface::class);
-        $this->assertInstanceOf(EntityManagerInterface::class, $entityManager);
-        $this->entityManager = $entityManager;
-
-        $reviewRepository = $container->get(ReviewRepository::class);
-        $this->assertInstanceOf(ReviewRepository::class, $reviewRepository);
-        $this->reviewRepository = $reviewRepository;
+        $this->entityManager = $container->get(EntityManagerInterface::class);
+        $this->reviewRepository = $container->get(ReviewRepository::class);
 
         $this->reviewServiceMock = $this->createMock(ReviewProcessServiceInterface::class);
+        $container->set(ReviewProcessServiceInterface::class, $this->reviewServiceMock);
+
         $this->bugCatcherMock = $this->createMock(BugCatcherInterface::class);
+        $container->set(BugCatcherInterface::class, $this->bugCatcherMock);
 
-        $this->translationManager = new TranslationManager($this->entityManager);
-
-        $this->handler = new ProcessReviewHandler(
-            $this->reviewServiceMock,
-            $this->reviewRepository,
-            $this->translationManager,
-            $this->entityManager,
-            $this->bugCatcherMock
-        );
+        /** @var ProcessReviewHandler $handler */
+        $handler = $container->get(ProcessReviewHandler::class);
+        $this->handler = $handler;
     }
 
     public function testInvokeProcessesReviewSuccessfully(): void
     {
         // 1. Prepare data
         $review = new Review();
-        $review->setContent('This is a great product!');
+        $review->setContent('Tento produkt je skvelý!');
         $review->setProductId(123);
         $review->setPrimaryLanguage(Language::Slovak);
         $this->entityManager->persist($review);
@@ -68,7 +59,7 @@ class ProcessReviewHandlerTest extends KernelTestCase
 
         $translationResponse = new ReviewTranslationResponse(
             Language::Hungarian->value,
-            'Ez egy nagyszerű termék!'
+            'Ez a termék nagyszerű!'
         );
 
         $reviewResponse = new ReviewResponse(
@@ -81,7 +72,6 @@ class ProcessReviewHandlerTest extends KernelTestCase
         $this->reviewServiceMock->expects($this->once())
             ->method('processReview')
             ->with($this->callback(function (Review $r) use ($reviewId) {
-                /** @var Uuid $reviewId */
                 return $r->getId() !== null && $r->getId()->equals($reviewId);
             }))
             ->willReturn($reviewResponse);
@@ -98,6 +88,7 @@ class ProcessReviewHandlerTest extends KernelTestCase
         $this->assertNotNull($updatedReview);
         $this->assertEquals(ReviewSentiment::Positive, $updatedReview->getSentiment());
         $this->assertTrue($updatedReview->isProcessed());
+        $this->assertEquals('Tento produkt je skvelý!', $updatedReview->getContent());
 
         // Verify translation was saved in DB
         $translation = $this->entityManager->getRepository(\App\Entity\Translation::class)->findOneBy([
@@ -108,7 +99,7 @@ class ProcessReviewHandlerTest extends KernelTestCase
         ]);
 
         $this->assertNotNull($translation);
-        $this->assertEquals('Ez egy nagyszerű termék!', $translation->value);
+        $this->assertEquals('Ez a termék nagyszerű!', $translation->value);
     }
 
     public function testInvokeLogsExceptionWhenReviewNotFound(): void
@@ -129,7 +120,7 @@ class ProcessReviewHandlerTest extends KernelTestCase
     {
         // Preparation
         $review = new Review();
-        $review->setContent('Test');
+        $review->setContent('Tento produkt je fajn');
         $review->setProductId(456);
         $review->setPrimaryLanguage(Language::Slovak);
         $this->entityManager->persist($review);
@@ -140,7 +131,7 @@ class ProcessReviewHandlerTest extends KernelTestCase
         // Translation for Czech when primary is Slovak (should return false in needTranslationFor)
         $translationResponse = new ReviewTranslationResponse(
             Language::Czech->value,
-            'Test cz'
+            'Tento produkt je fajn (cz)'
         );
 
         $reviewResponse = new ReviewResponse(
