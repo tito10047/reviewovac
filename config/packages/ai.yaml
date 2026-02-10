@@ -12,7 +12,7 @@ ai:
                 Analyzuj túto zákaznícku recenziu.
                 - Urči sentiment (positive, neutral, negative).
                 - Identifikuj, či je hlavným problémom samotný produkt (true/false).
-                - Prelož text recenzie do nasledujúcich jazykov: SK, HU, CZ, RO, HR, SI. Ak je zdrojový jazyk zhodný s cieľovým, vráť pôvodný text.
+                - Prelož text recenzie do potrebných jazykov. Ak je zdrojový jazyk zhodný s cieľovým, vráť pôvodný text.
             tools: false
 
     store:

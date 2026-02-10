@@ -79,6 +79,7 @@ V prípade potreby rozšírenia systému o nové možnosti postupujte nasledovne
 
 - **Pridanie nového jazyka:** Nový jazyk musí byť pridaný do enumu `App\Enum\Language`.
 - **Pridanie nového sentimentu:** Ak je potrebné rozlíšiť iný typ sentimentu, pridajte ho do enumu `App\Enum\ReviewSentiment`.
+- **Konfigurácia AI promptu:** Texty promptov a modely pre AI analýzu sa konfigurujú v súbore `config/packages/ai.yaml`.
 
 ### Vývojárske nástroje
 

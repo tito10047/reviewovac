@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\DTO\AI\ReviewResponse;
 use App\Entity\Review;
+use App\Enum\Language;
 use Symfony\AI\Agent\AgentInterface;
 use Symfony\AI\Agent\Exception\ExceptionInterface;
 use Symfony\AI\Platform\Message\Message;
@@ -24,6 +25,7 @@ class ReviewProcessService implements ReviewProcessServiceInterface
     public function processReview(Review $review): ReviewResponse
     {
         $response = $this->agent->call(new MessageBag(
+            Message::ofUser('Podporované jazyky: '.join(', ', Language::getSupportedLanguages())),
             Message::ofUser('Review: '.$review->getContent()),
         ), [
             'response_format' => ReviewResponse::class,
