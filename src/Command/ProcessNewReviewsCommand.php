@@ -8,6 +8,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Processes all new review requests.
@@ -28,15 +29,18 @@ class ProcessNewReviewsCommand
     {
         $reviewIdsQB = $this->reviewRepo->findUnprocessedIdsQB();
 
+        $count = (clone $reviewIdsQB)->select('COUNT(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        assert(is_int($count));
         $progressBar = $io->createProgressBar(
-            (clone $reviewIdsQB)->select('COUNT(r.id)')
-                ->getQuery()
-                ->getSingleScalarResult()
+            $count
         );
 
+        /** @var array{id: Uuid} $reviewId */
         foreach ($reviewIdsQB->getQuery()->toIterable() as $reviewId) {
             $progressBar->advance();
-            $this->bus->dispatch(new ProcessReviewMessage($reviewId["id"]->toString()));
+            $this->bus->dispatch(new ProcessReviewMessage($reviewId['id']->toString()));
         }
 
         $progressBar->finish();

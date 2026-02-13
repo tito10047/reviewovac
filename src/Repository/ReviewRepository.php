@@ -6,7 +6,6 @@ use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Review>
@@ -33,13 +32,11 @@ class ReviewRepository extends ServiceEntityRepository
 
     /**
      * Returns IDs of all unprocessed reviews.
-     *
      */
     public function findUnprocessedIdsQB(): QueryBuilder
     {
         return $array = $this->createQueryBuilder('r')
             ->select('r.id')
             ->where('r.processed = false');
-
     }
 }
