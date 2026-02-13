@@ -26,13 +26,17 @@ class ProcessNewReviewsCommand
 
     public function __invoke(SymfonyStyle $io): int
     {
-        $reviewIds = $this->reviewRepo->findUnprocessedIds();
+        $reviewIdsQB = $this->reviewRepo->findUnprocessedIdsQB();
 
-        $progressBar = $io->createProgressBar(count($reviewIds));
+        $progressBar = $io->createProgressBar(
+            (clone $reviewIdsQB)->select('COUNT(r.id)')
+                ->getQuery()
+                ->getSingleScalarResult()
+        );
 
-        foreach ($reviewIds as $reviewId) {
+        foreach ($reviewIdsQB->getQuery()->toIterable() as $reviewId) {
             $progressBar->advance();
-            $this->bus->dispatch(new ProcessReviewMessage($reviewId->toString()));
+            $this->bus->dispatch(new ProcessReviewMessage($reviewId["id"]->toString()));
         }
 
         $progressBar->finish();
