@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Enum\Language;
 use App\Enum\ReviewProblemTarget;
 use App\Enum\ReviewSentiment;
-use App\Enum\ReviewStar;
 use App\Repository\ReviewRepository;
 use App\Service\TranslatableInterface;
 use Doctrine\DBAL\Types\Types;
@@ -32,8 +31,8 @@ class Review implements TranslatableInterface
     #[TranslatableProperty]
     private ?string $content = null;
 
-    #[ORM\Column(nullable: true, enumType: ReviewStar::class)]
-    private ?ReviewStar $stars = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $stars = null;
 
     #[ORM\Column]
     private ?int $productId = null;
@@ -67,12 +66,12 @@ class Review implements TranslatableInterface
         return $this;
     }
 
-    public function getStars(): ?ReviewStar
+    public function getStars(): ?int
     {
         return $this->stars;
     }
 
-    public function setStars(?ReviewStar $stars): static
+    public function setStars(?int $stars): static
     {
         $this->stars = $stars;
 
