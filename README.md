@@ -151,6 +151,45 @@ Integračné testy, ktoré využívajú reálne volania na AI služby, sú v pre
 docker compose exec -e REAL_AI=1 php bin/phpunit --testsuite Integration
 ```
 
+## Konfigurácia tajných kľúčov (Symfony Secrets)
+
+Projekt využíva [Symfony Secrets](https://symfony.com/doc/current/configuration/secrets.html) pre bezpečnú správu citlivých údajov (napr. `OPENAI_API_KEY`).
+
+### Nastavenie vo vývojovom prostredí:
+
+1. **Generovanie kľúčov:**
+   ```bash
+   docker compose exec php bin/console secrets:generate-keys
+   ```
+
+2. **Nastavenie API kľúča:**
+   ```bash
+   echo "VÁŠ_OPENAI_API_KEY" | docker compose exec -i php bin/console secrets:set OPENAI_API_KEY -
+   ```
+
+3. **Zobrazenie nastavených kľúčov:**
+   ```bash
+   docker compose exec php bin/console secrets:list --reveal
+   ```
+
+### Produkčné prostredie:
+V produkcii nikdy neukladajte súkromný kľúč (`config/secrets/prod/prod.decrypt.private.php`) do repozitára. Tento kľúč musí byť bezpečne doručený na server.
+
+#### Nasadenie kľúča (SYMFONY_DECRYPTION_SECRET):
+Ak ste od vývojára dostali Base64 zakódovaný dešifrovací kľúč, môžete ho v produkcii použiť nasledovne:
+
+1. **Cez environment premennú (odporúčané):**
+   Nastavte premennú `SYMFONY_DECRYPTION_SECRET` vo vašom prostredí (napr. v `.env.local` na serveri alebo v konštelácii hostingu):
+   ```env
+   SYMFONY_DECRYPTION_SECRET=TU_VLOZTE_BASE64_KLUC
+   ```
+
+2. **Cez súbor:**
+   Uložte kľúč priamo do súboru `config/secrets/prod/prod.decrypt.private.php`. Symfony očakáva, že súbor bude vracať dešifrovaný kľúč. Ak máte Base64 reťazec, môžete ho prekonvertovať a uložiť pomocou PHP:
+   ```bash
+   docker compose exec php php -r 'file_put_contents("config/secrets/prod/prod.decrypt.private.php", "<?php return \"".base64_decode("TU_VLOZTE_BASE64_KLUC")."\";");'
+   ```
+
 ### Prístup k databáze (SQL)
 Ak potrebujete priamy prístup k databáze cez psql:
 ```bash
