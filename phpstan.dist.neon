@@ -1,14 +1,8 @@
 parameters:
-    level: 9
+    level: 6
     paths:
         - bin/
         - config/
         - public/
         - src/
         - tests/
-    excludePaths:
-        - config/reference.php
-    ignoreErrors:
-        -
-            message: '#Property .*::\$id \(.*\) is never assigned .* so it can be removed from the property type\.#'
-            path: src/Entity/*

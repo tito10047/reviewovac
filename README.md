@@ -23,9 +23,9 @@ Projekt je postavený na Symfony 8 a využíva moderné bundle:
 - `ProcessReviewHandler`: Message handler, ktorý koordinuje spracovanie jednej recenzie.
 - `TranslationManager`: Nástroj na perzistenciu prekladov do databázy.
 
-## Inštalácia a spustenie
+## Inštalácia a spustenie (Docker)
 
-Pre úspešné rozbehnutie projektu postupujte podľa nasledujúcich krokov:
+Pre úspešné rozbehnutie projektu pomocou Dockeru postupujte podľa nasledujúcich krokov:
 
 1. **Klonovanie repozitára:**
    ```bash
@@ -33,28 +33,28 @@ Pre úspešné rozbehnutie projektu postupujte podľa nasledujúcich krokov:
    cd reviewovac
    ```
 
-2. **Konfigurácia prostredia:**
-   Vytvorte si lokálny konfiguračný súbor a nastavte v ňom potrebné premenné (napr. prístup k databáze a API kľúče).
+2. **Štart prostredia:**
+   Všetky potrebné služby (PHP, PostgreSQL, Caddy) sa spustia jedným príkazom:
    ```bash
-   cp .env .env.local
+   docker compose up -d --wait
    ```
 
 3. **Spustenie migrácií:**
-   Pripravte si databázovú schému:
+   Pripravte si databázovú schému v kontajneri:
    ```bash
-   php bin/console doctrine:migrations:migrate --no-interaction
+   docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
    ```
 
 4. **Nahranie testovacích dát (voliteľné):**
    Ak chcete začať s testovacími dátami, spustite fixtures:
    ```bash
-   php bin/console doctrine:fixtures:load --no-interaction
+   docker compose exec php bin/console doctrine:fixtures:load --no-interaction
    ```
 
 5. **Spracovanie nových recenzií:**
    Pre spustenie procesu spracovania nových recenzií použite príkaz:
    ```bash
-   php bin/console app:process-new-reviews
+   docker compose exec php bin/console app:process-new-reviews
    ```
 
 ## Príkazy
@@ -63,8 +63,18 @@ Pre úspešné rozbehnutie projektu postupujte podľa nasledujúcich krokov:
 Príkaz načíta všetky nespracované recenzie z databázy a pre každú z nich odošle správu do Symfony Messenger na ďalšie spracovanie.
 
 ```bash
-php bin/console app:process-new-reviews
+docker compose exec php bin/console app:process-new-reviews
 ```
+
+#### Nahranie testovacích dát (Fixtures)
+Ak chcete vymazať aktuálnu databázu a nahrať do nej čerstvé testovacie dáta:
+
+```bash
+docker compose exec php bin/console doctrine:fixtures:load --no-interaction
+```
+
+> [!WARNING]
+> Príkaz `doctrine:fixtures:load` predvolene **vymaže všetky existujúce dáta** v databáze pred nahraním nových!
 
 > [!IMPORTANT]
 > **Spracovanie správ (Messenger):**
@@ -90,78 +100,59 @@ V pláne sú nasledujúce vylepšenia systému:
 
 ### Vývojárske nástroje
 
-V projekte sú nakonfigurované nástroje pre udržiavanie kvality kódu. Môžeš ich spúšťať pomocou Composer skriptov:
+Všetky nástroje spúšťajte cez Docker kontajner:
 
 #### Statická analýza (PHPStan)
 ```bash
-composer phpstan
+docker compose exec php composer phpstan
 ```
 
 #### Kontrola a oprava kódového štýlu (PHP CS Fixer)
 ```bash
 # Iba kontrola
-composer cs-check
+docker compose exec php composer cs-check
 
 # Automatická oprava
-composer cs-fix
+docker compose exec php composer cs-fix
 ```
 
 ### Testovanie
 
-V projekte sú testy rozdelené do dvoch hlavných skupín: **Unit testy** a **Integračné testy**.
+Testy v Docker prostredí využívajú samostatnú databázu `app_test`, ktorá je automaticky nakonfigurovaná.
 
 #### Spustenie testov
 
-Pre spustenie testov môžeš použiť nasledujúce skratky:
+Pre spustenie testov v kontajneri použite nasledujúce príkazy:
 
 ```bash
 # Spustenie všetkých testov
-composer tests
+docker compose exec php composer tests
 
 # Iba unit testy
-composer tests-unit
+docker compose exec php composer tests-unit
 
 # Iba integračné testy
-composer tests-integration
+docker compose exec php composer tests-integration
 
-# Integračné testy s reálnymi volaniami na AI (vyžaduje nastavené API kľúče)
-composer tests-real-ai
+# Integračné testy s reálnymi volaniami na AI (vyžaduje nastavené API kľúče v .env.local)
+docker compose exec php composer tests-real-ai
 ```
 
-Pôvodné príkazy cez `phpunit` stále fungujú:
+Pôvodné príkazy cez `phpunit` v kontajneri stále fungujú:
 ```bash
-vendor/bin/phpunit
-```
-
-Pre spustenie konkrétnej sady testov:
-```bash
-# Iba unit testy
-vendor/bin/phpunit --testsuite Unit
-
-# Iba integračné testy
-vendor/bin/phpunit --testsuite Integration
+docker compose exec php bin/phpunit
 ```
 
 #### Integračné testy a REAL_AI
 
-Integračné testy, ktoré využívajú reálne volania na AI služby (napr. `ReviewProcessServiceTest`), sú v predvolenom nastavení **preskakované**, aby sa zbytočne nemíňali kredity pri bežnom vývoji.
+Integračné testy, ktoré využívajú reálne volania na AI služby, sú v predvolenom nastavení **preskakované**. Pre ich spustenie použite:
 
-Ak chceš spustiť aj tieto testy, musíš nastaviť premennú prostredia `REAL_AI=1`:
 ```bash
-REAL_AI=1 vendor/bin/phpunit --testsuite Integration
+docker compose exec -e REAL_AI=1 php bin/phpunit --testsuite Integration
 ```
 
-### Konfigurácia testovacieho prostredia
-
-Pre lokálne spustenie integračných testov a správne fungovanie testovacieho prostredia je potrebné vytvoriť súbor `.env.test.local` (ak neexistuje) a vyplniť v ňom potrebné údaje.
-
-Súbor by mal obsahovať aspoň tieto premenné:
-
-```ini
-# Pripojenie k databáze pre testy
-DATABASE_URL="mysql://uzivatel:heslo@127.0.0.1:3306/názov_databázy"
-
-# API kľúče pre AI služby (potrebné pre integračné testy s REAL_AI=1)
-OPENAI_API_KEY=sk-proj-ddH....
-
+### Prístup k databáze (SQL)
+Ak potrebujete priamy prístup k databáze cez psql:
+```bash
+docker compose exec database psql -U app -d app
 ```

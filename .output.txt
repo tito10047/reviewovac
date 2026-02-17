@@ -1,0 +1,304 @@
+PHPUnit 13.0.3 by Sebastian Bergmann and contributors.
+Runtime:       PHP 8.4.18
+Configuration: /app/phpunit.dist.xml
+..............NNNEEEEES                                           23 / 23 (100%)
+Time: 00:00.605, Memory: 52.50 MB
+There were 5 errors:
+1) App\Tests\Integration\Command\ProcessNewReviewsCommandTest::testExecuteDispatchesMessagesForUnprocessedReviews
+Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
+/app/vendor/doctrine/dbal/src/Connection.php:1460
+/app/vendor/doctrine/dbal/src/Connection.php:1402
+/app/vendor/doctrine/dbal/src/Connection.php:224
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/Command/ProcessNewReviewsCommandTest.php:25
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+Doctrine\DBAL\Driver\PDO\Exception: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/Exception.php:24
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:55
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/Command/ProcessNewReviewsCommandTest.php:25
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+PDOException: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/PDOConnect.php:28
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:48
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/Command/ProcessNewReviewsCommandTest.php:25
+/app/vendor/phpunit/phpunit/phpunit:104
+2) App\Tests\Integration\MessageHandler\ProcessReviewHandlerTest::testInvokeProcessesReviewSuccessfully
+Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
+/app/vendor/doctrine/dbal/src/Connection.php:1460
+/app/vendor/doctrine/dbal/src/Connection.php:1402
+/app/vendor/doctrine/dbal/src/Connection.php:224
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:60
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+Doctrine\DBAL\Driver\PDO\Exception: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/Exception.php:24
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:55
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:60
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+PDOException: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/PDOConnect.php:28
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:48
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:60
+/app/vendor/phpunit/phpunit/phpunit:104
+3) App\Tests\Integration\MessageHandler\ProcessReviewHandlerTest::testInvokeLogsExceptionWhenReviewNotFound
+Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
+/app/vendor/doctrine/dbal/src/Connection.php:1460
+/app/vendor/doctrine/dbal/src/Connection.php:1402
+/app/vendor/doctrine/dbal/src/Connection.php:224
+/app/vendor/doctrine/dbal/src/Connection.php:792
+/app/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:738
+/app/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:756
+/app/vendor/doctrine/orm/src/EntityManager.php:366
+/app/vendor/doctrine/orm/src/EntityRepository.php:86
+/app/vendor/doctrine/doctrine-bundle/src/Repository/ServiceEntityRepository.php:66
+/app/src/MessageHandler/ProcessReviewHandler.php:34
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:125
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+Doctrine\DBAL\Driver\PDO\Exception: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/Exception.php:24
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:55
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:792
+/app/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:738
+/app/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:756
+/app/vendor/doctrine/orm/src/EntityManager.php:366
+/app/vendor/doctrine/orm/src/EntityRepository.php:86
+/app/vendor/doctrine/doctrine-bundle/src/Repository/ServiceEntityRepository.php:66
+/app/src/MessageHandler/ProcessReviewHandler.php:34
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:125
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+PDOException: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/PDOConnect.php:28
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:48
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:792
+/app/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:738
+/app/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:756
+/app/vendor/doctrine/orm/src/EntityManager.php:366
+/app/vendor/doctrine/orm/src/EntityRepository.php:86
+/app/vendor/doctrine/doctrine-bundle/src/Repository/ServiceEntityRepository.php:66
+/app/src/MessageHandler/ProcessReviewHandler.php:34
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:125
+/app/vendor/phpunit/phpunit/phpunit:104
+4) App\Tests\Integration\MessageHandler\ProcessReviewHandlerTest::testInvokeDoesNotTranslateIfNoTranslationNeeded
+Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
+/app/vendor/doctrine/dbal/src/Connection.php:1460
+/app/vendor/doctrine/dbal/src/Connection.php:1402
+/app/vendor/doctrine/dbal/src/Connection.php:224
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:131
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+Doctrine\DBAL\Driver\PDO\Exception: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/Exception.php:24
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:55
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:131
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+PDOException: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/PDOConnect.php:28
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:48
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:131
+/app/vendor/phpunit/phpunit/phpunit:104
+5) App\Tests\Integration\MessageHandler\ProcessReviewHandlerTest::testInvokeSetsProductProblemWhenIsProductIssueIsTrue
+Doctrine\DBAL\Exception\ConnectionException: An exception occurred in the driver: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/API/PostgreSQL/ExceptionConverter.php:78
+/app/vendor/doctrine/dbal/src/Connection.php:1460
+/app/vendor/doctrine/dbal/src/Connection.php:1402
+/app/vendor/doctrine/dbal/src/Connection.php:224
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:171
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+Doctrine\DBAL\Driver\PDO\Exception: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/Exception.php:24
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:55
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:171
+/app/vendor/phpunit/phpunit/phpunit:104
+Caused by
+PDOException: SQLSTATE[08006] [7] connection to server at "database" (172.18.0.3), port 5432 failed: FATAL:  database "app_test" does not exist
+/app/vendor/doctrine/dbal/src/Driver/PDO/PDOConnect.php:28
+/app/vendor/doctrine/dbal/src/Driver/PDO/PgSQL/Driver.php:48
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/dama/doctrine-test-bundle/src/Doctrine/DBAL/StaticDriver.php:32
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/doctrine/dbal/src/Logging/Driver.php:30
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/Debug/Driver.php:37
+/app/vendor/doctrine/dbal/src/Driver/Middleware/AbstractDriverMiddleware.php:27
+/app/vendor/symfony/doctrine-bridge/Middleware/IdleConnection/Driver.php:35
+/app/vendor/doctrine/dbal/src/Connection.php:222
+/app/vendor/doctrine/dbal/src/Connection.php:1052
+/app/vendor/doctrine/orm/src/UnitOfWork.php:382
+/app/vendor/doctrine/orm/src/EntityManager.php:268
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:143
+/app/vendor/zenstruck/foundry/src/Persistence/PersistenceManager.php:81
+/app/vendor/zenstruck/foundry/src/Persistence/PersistentObjectFactory.php:264
+/app/vendor/zenstruck/foundry/src/Factory.php:66
+/app/tests/Integration/MessageHandler/ProcessReviewHandlerTest.php:171
+/app/vendor/phpunit/phpunit/phpunit:104
+ERRORS!
+Tests: 23, Assertions: 39, Errors: 5, PHPUnit Notices: 3, Skipped: 1.
+Faker seed used: 568598
