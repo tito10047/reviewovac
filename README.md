@@ -104,7 +104,7 @@ Všetky nástroje spúšťajte cez Docker kontajner:
 
 #### Statická analýza (PHPStan)
 ```bash
-docker compose exec php composer phpstan
+docker compose exec php composer phpstan -- --memory-limit=512M
 ```
 
 #### Kontrola a oprava kódového štýlu (PHP CS Fixer)
